@@ -30,4 +30,11 @@
   
   })(window.jQuery);
 
+// mailchimp signup
+// document.getElementById("mc-embedded-subscribe-form").addEventListener("submit", function(event) {
+//   event.preventDefault(); // Stop default form submission
+
+//   // Show a message instead of redirecting
+//   document.getElementById("mc-embedded-subscribe-form").innerHTML = "<p>Thank you for subscribing!</p>";
+// });
 
