@@ -1,0 +1,131 @@
+<div class="main">
+  <h1 id="roller-header">GUNST. Skaber <div class="roller">
+    <span id="rolltext">Koncerter<br/>
+    Vækstlag<br/>
+    Workshops<br/>
+    <span id="spare-time">hjælp til kreative</span><br/>
+    </div>
+    </h1>
+    
+  </div>
+
+<style>
+
+    .main{
+  width:100%;  
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  margin-top: 33vh;
+}
+h1{
+  text-align:center;
+  text-transform: uppercase;
+  color: black; 
+  font-size: 2rem;
+}
+
+.roller{
+  height: 4.125rem;
+  
+  line-height: 4rem;
+  position: relative;
+  overflow: hidden; 
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  color: black;
+}
+
+
+#roller-header{
+  font-size: 4rem;
+}
+
+
+
+#spare-time{
+  font-size: 1rem;
+  font-style: italic;
+  letter-spacing: 1rem;
+  margin-top: 0;
+  color: #f2a49a;
+  
+}
+
+.roller #rolltext {
+  position: absolute;
+  top: 0;
+  animation: slide 12s infinite;  
+}
+
+@keyframes slide {
+  0%{
+    top:0;
+  }
+  25%{
+    top: -4rem;    
+  }
+  50%{
+    top: -8rem;
+  }
+  72.5%{
+    top: -12.25rem;
+  }
+}
+
+@media screen and (max-width: 600px){
+  h1{
+  text-align:center;
+  text-transform: uppercase;
+  color: black; 
+  font-size: 2.125rem;
+}
+  
+  .roller{
+  height: 2.6rem; 
+  line-height: 2.125rem;  
+  }
+  
+  #spare-time {
+    font-size: 1rem;
+    letter-spacing: 0.1rem;
+  }
+  
+  #roller-header{
+    font-size: 2rem;
+  }
+
+  .roller #rolltext {  
+  animation: slide-mob 9s infinite;  
+}
+  
+  @keyframes slide-mob {
+  0%{
+    top:0.3rem;
+  }
+  15%
+  {
+    top:0.3rem;
+  }
+  25%{
+    top: -1.9rem;    
+  }
+    40%{
+    top: -1.9rem;    
+  }
+  50%{
+    top: -4.25rem;
+  }
+    60%{
+    top: -4.25rem;
+  }
+  72.5%{
+    top: -6.375rem;
+  }
+}
+}
+</style>
