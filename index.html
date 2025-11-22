@@ -344,18 +344,35 @@ h1{
 }
     </style>
 </head>
-<body>
+<body hx-boost="true">
     <div class="container">
-        <nav class="primary-nav">
-            <ul>
-                <li><a href="#" hx-get="partials/home.html" hx-target="#content" hx-swap="innerHTML">Hjem</a></li>
-                <li><a href="#" hx-get="partials/om.html" hx-target="#content" hx-swap="innerHTML">Om</a></li>
-                <li><a href="#" hx-get="partials/creativehub.html" hx-target="#content" hx-swap="innerHTML">Creative Hub</a></li>
-                <!-- <li><a href="#" hx-get="partials/events.html" hx-target="#content" hx-swap="innerHTML">Events</a></li>
-                <li><a href="#" hx-get="partials/vaerdier.html" hx-target="#content" hx-swap="innerHTML">Værdier</a></li>
-                <li><a href="#" hx-get="partials/kontakt.html" hx-target="#content" hx-swap="innerHTML">Kontakt</a></li> -->
-            </ul>
-        </nav>
+<nav class="primary-nav">
+  <ul>
+    <li>
+      <a href="/"
+         hx-get="partials/home.html"
+         hx-target="#content"
+         hx-swap="innerHTML"
+         hx-push-url="/">Hjem</a>
+    </li>
+
+    <li>
+      <a href="/om"
+         hx-get="partials/om.html"
+         hx-target="#content"
+         hx-swap="innerHTML"
+         hx-push-url="/om">Om</a>
+    </li>
+
+    <li>
+      <a href="/creativehub"
+         hx-get="partials/creativehub.html"
+         hx-target="#content"
+         hx-swap="innerHTML"
+         hx-push-url="/creativehub">Creative Hub</a>
+    </li>
+  </ul>
+</nav>
         <main id="content" class="main-content">
 
             <div class="main">
@@ -486,6 +503,55 @@ h1{
                 });
             }
         });
+
+
+//         // Only runs on first page load if #content is empty
+//   if (location.pathname !== '/' && !document.querySelector('#content').innerHTML.trim()) {
+//     const map = {
+//       '/om': 'om.html',
+//       '/creativehub': 'creativehub.html'
+//       // add more as needed
+//     };
+//     const partial = map[location.pathname] || 'home.html';
+//     htmx.ajax('GET', 'partials/' + partial, {
+//       target: '#content',
+//       swap: 'innerHTML'
+//     });
+//   }
+
+//   document.body.addEventListener('htmx:afterOnLoad', function() {
+//     // Only run on the very first page load when #content is empty
+//     if (location.pathname !== '/' && !document.getElementById('content').innerHTML.trim()) {
+//       const map = {
+//         '/om': 'om.html',
+//         '/creativehub': 'creativehub.html'
+//       };
+//       const file = map[location.pathname] || 'home.html';
+//       htmx.ajax('GET', 'partials/' + file, {target:'#content', swap:'innerHTML'});
+//     }
+//   });
+
+
+// Fix: use htmx:afterSwap instead of htmx:afterOnLoad
+  document.body.addEventListener('htmx:afterSwap', function(evt) {
+    // Only run on hard page load (when #content is empty)
+    if (location.pathname !== '/' && 
+        document.getElementById('content') && 
+        !document.getElementById('content').innerHTML.trim()) {
+      
+      const map = {
+        '/om': 'om.html',
+        '/creativehub': 'creativehub.html'
+      };
+      const file = map[location.pathname] || 'hom e.html';
+      htmx.ajax('GET', 'partials/' + file, {
+        target: '#content',
+        swap: 'innerHTML',
+        pushUrl: location.pathname  // optional: ensure URL stays correct
+      });
+    }
+  });
+  
     </script>
 </body>
 </html>
