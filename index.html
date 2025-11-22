@@ -5,9 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GUNST.</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto&family=Heebo:wght@900&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
-    <meta http-equiv="refresh" content="3; url=https://1831.foreninglet.dk/memberportal/subscribe/index/186039">
-    
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>    
         <!-- Meta Pixel Code -->
     <script>
     !function(f,b,e,v,n,t,s)
@@ -31,6 +29,13 @@
         :root {
             font-size: 16px;
         }
+
+        *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        }
+
         body {
             font-family: 'Roboto', sans-serif;
             background-color: #FFFfF5;
@@ -51,6 +56,15 @@
         }
         a:hover {
             text-decoration: underline;
+        }
+        button {
+        background: #000;
+        color: #fff;
+        padding: 12px 16px;
+        border: none;
+        }
+        button:hover {
+        border: 3px solid #000;
         }
         .container {
             display: grid;
@@ -79,13 +93,13 @@
         }
 
         .campaign-main{
-            max-width: 90vw;
-            max-height: 90vh;
+            max-width: 80vw;
+            max-height: 80vh;
         }
 
         .campaign-main img{
-            max-width: 90vw;
-            max-height: 90vh;
+            max-width: 80vw;
+            max-height: 80vh;
         }
 
         .section {
@@ -335,6 +349,7 @@ h1{
             <ul>
                 <li><a href="#" hx-get="partials/home.html" hx-target="#content" hx-swap="innerHTML">Hjem</a></li>
                 <li><a href="#" hx-get="partials/om.html" hx-target="#content" hx-swap="innerHTML">Om</a></li>
+                <li><a href="#" hx-get="partials/creativehub.html" hx-target="#content" hx-swap="innerHTML">Creative Hub</a></li>
                 <!-- <li><a href="#" hx-get="partials/events.html" hx-target="#content" hx-swap="innerHTML">Events</a></li>
                 <li><a href="#" hx-get="partials/vaerdier.html" hx-target="#content" hx-swap="innerHTML">Værdier</a></li>
                 <li><a href="#" hx-get="partials/kontakt.html" hx-target="#content" hx-swap="innerHTML">Kontakt</a></li> -->

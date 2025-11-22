@@ -1,0 +1,263 @@
+<main class="content">
+  <section class="section">
+
+    <div>
+      
+      <h1 >Gunst. <br> Creative HUB <br> feat Miller</h1>
+
+
+        <div class="campaign-main">
+        <img src="creative-hub-miller-web-foto.jpg" alt="">
+        </div>
+
+        <br>
+      <h2>
+        Tid og sted
+      </h2>
+
+      <b>
+      <p>Musikbunkeren i Gentofte</p>
+      <p>4. December</p>
+      <p>16:30-20:00</p>
+      </b>
+      <br>
+
+      <p>Der er gratis tilmelding, men under 10 pladser tilbage!</p> <br>
+      <button id="creativehub-signup-btn">tilmeld nu</button>
+
+      <!-- Creativehub Signup Modal -->
+      <div id="creativehub-modal" class="modal" style="display:none; position:fixed; z-index:1000; left:0; top:0; width:100vw; height:100vh; overflow:auto; background:rgba(0,0,0,0.4);">
+        <div class="modal-content" style="background:#fff; margin:10% auto; padding:2rem; border-radius:1rem; max-width:400px; position:relative;">
+          <span class="close" id="creativehub-close" style="position:absolute; top:1rem; right:1rem; font-size:2rem; cursor:pointer;">×</span>
+          <h2>Tilmeld til Creative HUB event</h2>
+          <div id="creativehub-message" style="display:none; margin-bottom:1rem; padding:0.75rem 1rem; border-radius:0.5rem; background:#f2a49a; color:black; font-weight:bold; text-align:center;"></div>
+          <form class="creativehub-form">
+            <input type="text" name="name" placeholder="Dit navn" required style="width:100%; margin-bottom:1rem; padding:0.5rem;">
+            <input type="email" name="email" placeholder="Din email" required style="width:100%; margin-bottom:1rem; padding:0.5rem;">
+            <button type="submit" style="width:100%; padding:0.75rem; background:#f2a49a; color:black; border:none; border-radius:0.5rem; font-weight:bold; cursor:pointer;">Tilmeld</button>
+          </form>
+        </div>
+      </div>
+
+      <script>
+      // Modal and form logic for creativehub signup (no DOMContentLoaded, for partial/markdown loading)
+      (function() {
+        var modal = document.getElementById('creativehub-modal');
+        var btn = document.getElementById('creativehub-signup-btn');
+        var span = document.getElementById('creativehub-close');
+        var form = document.querySelector('.creativehub-form');
+        var messageBox = document.getElementById('creativehub-message');
+
+        function showMessage(msg) {
+          if (messageBox) {
+            messageBox.innerHTML = msg;
+            messageBox.style.display = 'block';
+          }
+        }
+        function hideMessage() {
+          if (messageBox) {
+            messageBox.style.display = 'none';
+            messageBox.innerHTML = '';
+          }
+        }
+
+        if (btn) {
+          btn.onclick = function(e) {
+            e.preventDefault();
+            modal.style.display = 'block';
+            hideMessage();
+          }
+        }
+        if (span) {
+          span.onclick = function() {
+            modal.style.display = 'none';
+            hideMessage();
+          }
+        }
+        window.addEventListener('click', function(event) {
+          if (event.target == modal) {
+            modal.style.display = 'none';
+            hideMessage();
+          }
+        });
+
+        if (form) {
+          form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            var name = form.elements['name'].value.trim();
+            var email = form.elements['email'].value.trim();
+            if (!name || !email) {
+              showMessage('Udfyld både navn og email.');
+              return;
+            }
+            try {
+              const response = await fetch('http://172.105.90.126:3000/creativehub1', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, email })
+              });
+              if (response.ok) {
+                form.innerHTML = '<div style="padding:0.75rem 1rem; border-radius:0.5rem; color:black; font-weight:bold; text-align:center;">Tak for din tilmelding!</div>';
+                setTimeout(function() {
+                  modal.style.display = 'none';
+                  // Reset form HTML for next open
+                  form.innerHTML = '<input type="text" name="name" placeholder="Dit navn" required style="width:100%; margin-bottom:1rem; padding:0.5rem;">\n<input type="email" name="email" placeholder="Din email" required style="width:100%; margin-bottom:1rem; padding:0.5rem;">\n<button type="submit" style="width:100%; padding:0.75rem; background:#f2a49a; color:black; border:none; border-radius:0.5rem; font-weight:bold; cursor:pointer;">Tilmeld</button>';
+                }, 2000);
+              } else {
+                let errorMsg = 'Noget gik galt.';
+                try {
+                  const data = await response.json();
+                  if (data && data.error) errorMsg = data.error;
+                } catch (e) {}
+                const originalForm = '<input type="text" name="name" placeholder="Dit navn" required style="width:100%; margin-bottom:1rem; padding:0.5rem;">\n<input type="email" name="email" placeholder="Din email" required style="width:100%; margin-bottom:1rem; padding:0.5rem;">\n<button type="submit" style="width:100%; padding:0.75rem; background:#f2a49a; color:black; border:none; border-radius:0.5rem; font-weight:bold; cursor:pointer;">Tilmeld</button>';
+                form.innerHTML = `<div style=\"padding:0.75rem 1rem; border-radius:0.5rem; color:black; font-weight:bold; text-align:center;\">${errorMsg}</div>`;
+                setTimeout(function() {
+                  form.innerHTML = originalForm;
+                }, 2000);
+              }
+            } catch (err) {
+              showMessage('Kunne ikke tilmelde. Prøv igen senere.');
+            }
+          });
+        }
+      })();
+      </script>
+      </div>
+
+      <script>
+      // Modal and form logic for creativehub signup
+      document.addEventListener('DOMContentLoaded', function() {
+        var modal = document.getElementById('creativehub-modal');
+        var btn = document.getElementById('creativehub-signup-btn');
+        var span = document.getElementById('creativehub-close');
+        var form = document.querySelector('.creativehub-form');
+        var messageBox = document.getElementById('creativehub-message');
+
+        function showMessage(msg) {
+          if (messageBox) {
+            messageBox.innerHTML = msg;
+            messageBox.style.display = 'block';
+          }
+        }
+        function hideMessage() {
+          if (messageBox) {
+            messageBox.style.display = 'none';
+            messageBox.innerHTML = '';
+          }
+        }
+
+        if (btn) {
+          btn.onclick = function(e) {
+            e.preventDefault();
+            modal.style.display = 'block';
+            hideMessage();
+          }
+        }
+        if (span) {
+          span.onclick = function() {
+            modal.style.display = 'none';
+            hideMessage();
+          }
+        }
+        window.onclick = function(event) {
+          if (event.target == modal) {
+            modal.style.display = 'none';
+            hideMessage();
+          }
+        }
+
+        if (form) {
+          form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            var name = form.elements['name'].value.trim();
+            var email = form.elements['email'].value.trim();
+            if (!name || !email) {
+              showMessage('Udfyld både navn og email.');
+              return;
+            }
+            try {
+              const response = await fetch('http://172.105.90.126:3000/creativehub1', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, email })
+              });
+              if (response.ok) {
+                form.innerHTML = '<div style="padding:0.75rem 1rem; border-radius:0.5rem; color:black; font-weight:bold; text-align:center;">Tak for din tilmelding!</div>';
+                setTimeout(function() {
+                  modal.style.display = 'none';
+                  // Reset form HTML for next open
+                  form.innerHTML = '<input type="text" name="name" placeholder="Dit navn" required style="width:100%; margin-bottom:1rem; padding:0.5rem;">\n<input type="email" name="email" placeholder="Din email" required style="width:100%; margin-bottom:1rem; padding:0.5rem;">\n<button type="submit" style="width:100%; padding:0.75rem; background:#f2a49a; color:black; border:none; border-radius:0.5rem; font-weight:bold; cursor:pointer;">Tilmeld</button>';
+                }, 2000);
+              } else {
+                let errorMsg = 'Noget gik galt.';
+                try {
+                  const data = await response.json();
+                  if (data && data.error) errorMsg = data.error;
+                } catch (e) {}
+                const originalForm = '<input type="text" name="name" placeholder="Dit navn" required style="width:100%; margin-bottom:1rem; padding:0.5rem;">\n<input type="email" name="email" placeholder="Din email" required style="width:100%; margin-bottom:1rem; padding:0.5rem;">\n<button type="submit" style="width:100%; padding:0.75rem; background:#f2a49a; color:black; border:none; border-radius:0.5rem; font-weight:bold; cursor:pointer;">Tilmeld</button>';
+                form.innerHTML = `<div style="padding:0.75rem 1rem; border-radius:0.5rem; color:black; font-weight:bold; text-align:center;">${errorMsg}</div>`;
+                setTimeout(function() {
+                  form.innerHTML = originalForm;
+                }, 2000);
+              }
+            } catch (err) {
+              showMessage('Kunne ikke tilmelde. Prøv igen senere.');
+            }
+          });
+        }
+      });
+      </script>
+      <br> <br> <br> 
+    </div>
+
+
+    
+    <h3>Bliv en del af et fællesskab og få feedback på din musik med Miller.</h3>
+    <p>Kom forbi til en uformel dag, hvor vi giver en kop kaffe eller sodavand på husets regning.
+Mød andre musikere i afslappede omgivelser, og hvis du har lyst, kan du spille brætspil eller kaste dig ud i musikrelaterede samtalespil. <br>
+<b>
+Måske møder du endda dit næste bandmedlem i dag - hvem ved? </b><br>
+Der er også mulighed for at få feedback fra erfarne musikere. Det foregår i et separat rum, hvor kun feedback-giverne er til stede, så der er ro og fokus på musikken.
+</p>
+<br><br>
+
+<h3>Praktisk info om feedback</h3>
+<p>
+  Feedback kan gives på alle niveauer og færdighedstrin alt fra en lille idébid, til en demo, til et poleret værk er velkomment. 
+
+Har du en optagelse med, kan den blive afspillet på studiehøjttalere.
+De eneste regler er, at filen/filerne skal vare i alt under 4 minutter, og at den skal være i et almindeligt afspilningsformat, f.eks. MP3 eller WAV.
+Hvis du/I ønsker at spille live, er det også helt i orden. I skal blot medbringe egne instrumenter og holde din/jeres optræden på ca. 4 minutter.
+Tidsbegrænsningerne er til for at alle kan nå at få en tur.
+</p>
+<br><br>
+
+<h3>Om Miller</h3>
+<p>
+Miller er mest kendt som forsanger og guitarist i pop-punk-projektet miller, der netop har afsluttet sin Danmarksturné i 2025.
+Derudover er Emil “Miller” Kronil en alsidig musiker. Han har mange års erfaring som producer og lydtekniker. Netop den baggrund gør ham i stand til at tilbyde kvalificeret feedback på tværs af både genrer og niveauer.
+Kom forbi og bliv en del af et trygt og inspirerende musikfællesskab!
+</p>
+<br><br>
+
+
+<h3>Om Gunst</h3>
+<p>
+Gunst. er en frivillig forening drevet af passionerede unge, der skaber muligheder for unge med interesse for kulturlivet. Vi hjælper unge med at udvikle deres talent og udbygge deres netværk.
+Med denne kerne af talentfulde unge skaber vi spændende events, der spænder fra koncerter til workshops.
+</p>
+<br><br>
+
+<h3>Tak til</h3>
+<p>GUNST. siger stort tak til Tuborg Fondet og Musikbunkeren i Gentofte. <br> De er grunden til at det her kan lade sig gøre gratis.</p>
+<br> <br>
+            <h3>Kontakt</h3>
+    <p>
+    Du kan kontakte os på <a href="mailto:gunstnere@gmail.com">gunstnere@gmail.com</a>.
+    </p>
+
+      </section>
+ 
+
+
+</main>
