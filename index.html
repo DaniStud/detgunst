@@ -473,7 +473,7 @@ h1{
                         return;
                     }
                     try {
-                        const response = await fetch('https://api.detgunst.dk/creativehub1', {
+                        const response = await fetch('https://api.detgunst.dk/emails', {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify({ name, email })
