@@ -1,11 +1,9 @@
-<!DOCTYPE html>
-<html lang="da">
-<head>
+<html lang="da"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GUNST.</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto&family=Heebo:wght@900&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/htmx.org@1.9.10"></script>    
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&amp;family=Heebo:wght@900&amp;display=swap" rel="stylesheet">
+    <script async="" src="https://connect.facebook.net/en_US/fbevents.js"></script><script src="https://unpkg.com/htmx.org@1.9.10"></script>    
         <!-- Meta Pixel Code -->
     <script>
     !function(f,b,e,v,n,t,s)
@@ -343,53 +341,229 @@ h1{
 }
 }
     </style>
-</head>
-<body hx-boost="true">
+<style>                      .htmx-indicator{opacity:0}                      .htmx-request .htmx-indicator{opacity:1; transition: opacity 200ms ease-in;}                      .htmx-request.htmx-indicator{opacity:1; transition: opacity 200ms ease-in;}                    </style></head>
+<body hx-boost="true" class="">
     <div class="container">
 <nav class="primary-nav">
   <ul>
     <li>
-      <a href="/"
-         hx-get="partials/home.html"
-         hx-target="#content"
-         hx-swap="innerHTML">Hjem</a>
+      <a href="/" hx-get="partials/home.html" hx-target="#content" hx-swap="innerHTML">Hjem</a>
     </li>
     <li>
-      <a href="#om"
-         hx-get="partials/om.html"
-         hx-target="#content"
-         hx-swap="innerHTML">Om</a>
+      <a href="#om" hx-get="partials/om.html" hx-target="#content" hx-swap="innerHTML">Om</a>
     </li>
     <li>
-      <a href="/creativehub.html"
-    >Creative Hub</a>
+        <a href="/creativehub.html">Creative Hub</a>
     </li>
   </ul>
 </nav>
-        <main id="content" class="main-content">
+        <main id="content" class="main-content"><main class="content">
+  <section class="section">
 
-            <div class="main">
-  <h1 id="roller-header">GUNST. Skaber <div class="roller">
-    <span id="rolltext">Koncerter<br/>
-    Vækstlag<br/>
-    Workshops<br/>
-    <span id="spare-time">hjælp til kreative</span><br/>
-    </div>
-    </h1>
-    
-  </div>
+    <div>
+      
+      <h1>Gunst. <br> Creative HUB <br> feat Miller</h1>
 
 
-        <!-- <div class="campaign-main">
+        <div class="campaign-main">
         <img src="creative-hub-miller-web-foto.jpg" alt="">
-        <h2> Vent venligst. <br> Du videresendes til billet-portalen...</h2>
-        <p>
+        </div>
 
-        </p>
+        <br>
+      <h2>
+        Tid og sted
+      </h2>
 
-        </div> -->
-  
-        </main>
+      <b>
+      <p>Musikbunkeren i Gentofte</p>
+      <p>4. December</p>
+      <p>16:30-20:00</p>
+      </b>
+      <br>
+
+      <p>Der er gratis tilmelding, men der er begrænsede pladser!</p> <br>
+      <button id="creativehub-signup-btn">tilmeld nu</button>
+
+      <!-- Creativehub Signup Modal -->
+      <div id="creativehub-modal" class="modal">
+        <div class="modal-content">
+          <span class="close" id="creativehub-close">×</span>
+          <h2>Tilmelding til Creative HUB</h2>
+          <div id="creativehub-message" style="display:none; margin-bottom:1rem; padding:0.75rem 1rem; border-radius:0.5rem; background:#f2a49a; color:black; font-weight:bold; text-align:center;"></div>
+          <form class="newsletter-form creativehub-form" id="creativehub-form" hx-ignore hx-boost="false" novalidate>
+            <input type="text" name="name" placeholder="Dit navn" required>
+            <input type="email" name="email" placeholder="Din email" required>
+            <button type="submit">Tilmeld</button>
+          </form>
+        </div>
+      </div>
+
+      <script>
+      // Modal and form logic for creativehub signup (no DOMContentLoaded, for partial/markdown loading)
+      (function() {
+        var modal = document.getElementById('creativehub-modal');
+        var btn = document.getElementById('creativehub-signup-btn');
+        var span = document.getElementById('creativehub-close');
+        var form = document.getElementById('creativehub-form');
+        var messageBox = document.getElementById('creativehub-message');
+
+        function showMessage(msg) {
+          if (messageBox) {
+            messageBox.innerHTML = msg;
+            messageBox.style.display = 'block';
+          }
+        }
+        function hideMessage() {
+          if (messageBox) {
+            messageBox.style.display = 'none';
+            messageBox.innerHTML = '';
+          }
+        }
+
+        if (btn) {
+          btn.onclick = function(e) {
+            e.preventDefault();
+            modal.style.display = 'block';
+            hideMessage();
+          }
+        }
+        if (span) {
+          span.onclick = function() {
+            modal.style.display = 'none';
+            hideMessage();
+          }
+        }
+        window.addEventListener('click', function(event) {
+          if (event.target == modal) {
+            modal.style.display = 'none';
+            hideMessage();
+          }
+        });
+
+        if (form) {
+          form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            // Guard: if already submitted, do nothing
+            if (form.getAttribute('data-submitting') === 'true') return;
+            form.setAttribute('data-submitting','true');
+            hideMessage();
+            var nameInput = form.elements['name'];
+            var emailInput = form.elements['email'];
+            if (!nameInput || !emailInput) {
+              showMessage('Formular blev ændret uventet. Opdater siden.');
+              form.removeAttribute('data-submitting');
+              return;
+            }
+            var name = nameInput.value.trim();
+            var email = emailInput.value.trim();
+            if (!name || !email) {
+              showMessage('Udfyld både navn og email.');
+              form.removeAttribute('data-submitting');
+              return;
+            }
+            // Disable inputs during submission
+            nameInput.disabled = true; emailInput.disabled = true; form.querySelector('button[type="submit"]').disabled = true;
+            showMessage('Sender...');
+            console.log('[creativehub] submitting', {name, email});
+            try {
+              const response = await fetch('https://api.detgunst.dk/creativehub1', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, email })
+              });
+              console.log('[creativehub] response status', response.status);
+              if (response.ok) {
+                showMessage('Tak for din tilmelding!');
+                console.log('[creativehub] success');
+                // Keep modal open for 3s so message is visible
+                setTimeout(function(){
+                  modal.style.display = 'none';
+                  // Reset form for next open
+                  nameInput.disabled = false; emailInput.disabled = false; form.querySelector('button[type="submit"]').disabled = false;
+                  nameInput.value=''; emailInput.value='';
+                  hideMessage();
+                  form.removeAttribute('data-submitting');
+                }, 3000);
+              } else {
+                let errorMsg = 'Noget gik galt.';
+                try {
+                  const data = await response.json();
+                  if (data && data.error) errorMsg = data.error;
+                } catch (e2) {
+                  console.warn('[creativehub] parse error response failed', e2);
+                }
+                showMessage(errorMsg);
+                console.log('[creativehub] server error', errorMsg);
+                nameInput.disabled = false; emailInput.disabled = false; form.querySelector('button[type="submit"]').disabled = false;
+                form.removeAttribute('data-submitting');
+              }
+            } catch (err) {
+              console.error('[creativehub] network error', err);
+              showMessage('Kunne ikke tilmelde. Prøv igen senere.');
+              nameInput.disabled = false; emailInput.disabled = false; form.querySelector('button[type="submit"]').disabled = false;
+              form.removeAttribute('data-submitting');
+            }
+          });
+        }
+      })();
+      </script>
+      </div>
+
+      <br> <br> <br> 
+    
+
+
+    
+    <h3>Bliv en del af et fællesskab og få feedback på din musik med Miller.</h3>
+    <p>Kom forbi til en uformel dag, hvor vi giver en kop kaffe eller sodavand på husets regning.
+Mød andre musikere i afslappede omgivelser, og hvis du har lyst, kan du spille brætspil eller kaste dig ud i musikrelaterede samtalespil. <br>
+<b>
+Måske møder du endda dit næste bandmedlem i dag - hvem ved? </b><br>
+Der er også mulighed for at få feedback fra erfarne musikere. Det foregår i et separat rum, hvor kun feedback-giverne er til stede, så der er ro og fokus på musikken.
+</p>
+<br><br>
+
+<h3>Praktisk info om feedback</h3>
+<p>
+  Feedback kan gives på alle niveauer og færdighedstrin alt fra en lille idébid, til en demo, til et poleret værk er velkomment. 
+
+Har du en optagelse med, kan den blive afspillet på studiehøjttalere.
+De eneste regler er, at filen/filerne skal vare i alt under 4 minutter, og at den skal være i et almindeligt afspilningsformat, f.eks. MP3 eller WAV.
+Hvis du/I ønsker at spille live, er det også helt i orden. I skal blot medbringe egne instrumenter og holde din/jeres optræden på ca. 4 minutter.
+Tidsbegrænsningerne er til for at alle kan nå at få en tur.
+</p>
+<br><br>
+
+<h3>Om Miller</h3>
+<p>
+Miller er mest kendt som forsanger og guitarist i pop-punk-projektet miller, der netop har afsluttet sin Danmarksturné i 2025.
+Derudover er Emil “Miller” Kronil en alsidig musiker. Han har mange års erfaring som producer og lydtekniker. Netop den baggrund gør ham i stand til at tilbyde kvalificeret feedback på tværs af både genrer og niveauer.
+Kom forbi og bliv en del af et trygt og inspirerende musikfællesskab!
+</p>
+<br><br>
+
+
+<h3>Om Gunst</h3>
+<p>
+Gunst. er en frivillig forening drevet af passionerede unge, der skaber muligheder for unge med interesse for kulturlivet. Vi hjælper unge med at udvikle deres talent og udbygge deres netværk.
+Med denne kerne af talentfulde unge skaber vi spændende events, der spænder fra koncerter til workshops.
+</p>
+<br><br>
+
+<h3>Tak til</h3>
+<p>GUNST. siger stort tak til Tuborg Fondet og Musikbunkeren i Gentofte. <br> De er grunden til at det her kan lade sig gøre gratis.</p>
+<br> <br>
+            <h3>Kontakt</h3>
+    <p>
+    Du kan kontakte os på <a href="mailto:gunstnere@gmail.com">gunstnere@gmail.com</a>.
+    </p>
+
+      </section>
+ 
+
+
+</main>
+</main>
         <nav class="secondary-nav">
             <ul>
                 <!-- <li><a href="#" id="newsletter-link">Signup til nyhedsbrev</a></li> -->
@@ -406,9 +580,9 @@ h1{
             <span class="close">×</span>
             <h2>Signup til nyhedsbrev</h2>
             <div id="newsletter-message" style="display:none; margin-bottom:1rem; padding:0.75rem 1rem; border-radius:0.5rem; background:#f2a49a; color:black; font-weight:bold; text-align:center;"></div>
-            <form class="newsletter-form">
-                <input type="text" name="name" placeholder="Dit navn" required>
-                <input type="email" name="email" placeholder="Din email" required>
+            <form class="newsletter-form" hx-ignore>
+                <input type="text" name="name" placeholder="Dit navn" required="">
+                <input type="email" name="email" placeholder="Din email" required="">
                 <button type="submit">Tilmeld</button>
             </form>
         </div>
@@ -546,47 +720,47 @@ h1{
   });
 
 
-//   // Add this to your script section
-// document.addEventListener('DOMContentLoaded', function() {
-//   function loadContentFromHash() {
-//     const hash = window.location.hash.replace('#', '');
-//     const routeMap = {
-//       'creativehub': 'partials/creativehub.html',
-//       'om': 'partials/om.html',
-//       '': 'partials/home.html'
-//     };
+  // Add this to your script section
+document.addEventListener('DOMContentLoaded', function() {
+  function loadContentFromHash() {
+    const hash = window.location.hash.replace('#', '');
+    const routeMap = {
+      'creativehub': 'partials/creativehub.html',
+      'om': 'partials/om.html',
+      '': 'partials/home.html'
+    };
     
-//     const partial = routeMap[hash] || routeMap[''];
+    const partial = routeMap[hash] || routeMap[''];
     
-//     htmx.ajax('GET', partial, {
-//       target: '#content',
-//       swap: 'innerHTML'
-//     });
-//   }
+    htmx.ajax('GET', partial, {
+      target: '#content',
+      swap: 'innerHTML'
+    });
+  }
   
-//   // Load content on initial page load based on hash
-//   if (window.location.hash) {
-//     loadContentFromHash();
-//   }
+  // Load content on initial page load based on hash
+  if (window.location.hash) {
+    loadContentFromHash();
+  }
   
-//   // Update hash when navigating
-//   document.body.addEventListener('htmx:beforeRequest', function(evt) {
-//     const path = evt.detail.pathInfo.requestPath;
-//     const hashMap = {
-//       '/om': '#om',
-//       '/creativehub': '#creativehub', 
-//       '/': '#'
-//     };
+  // Update hash when navigating
+  document.body.addEventListener('htmx:beforeRequest', function(evt) {
+    const path = evt.detail.pathInfo.requestPath;
+    const hashMap = {
+      '/om': '#om',
+      '/creativehub': '#creativehub', 
+      '/': '#'
+    };
     
-//     if (hashMap[path]) {
-//       window.location.hash = hashMap[path];
-//     }
-//   });
+    if (hashMap[path]) {
+      window.location.hash = hashMap[path];
+    }
+  });
   
-//   // Listen for hash changes
-//   window.addEventListener('hashchange', loadContentFromHash);
-// });
+  // Listen for hash changes
+  window.addEventListener('hashchange', loadContentFromHash);
+});
   
     </script>
-</body>
-</html>
+
+</body></html>
