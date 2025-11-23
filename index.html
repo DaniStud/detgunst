@@ -352,24 +352,19 @@ h1{
       <a href="/"
          hx-get="partials/home.html"
          hx-target="#content"
-         hx-swap="innerHTML"
-         hx-push-url="/">Hjem</a>
+         hx-swap="innerHTML">Hjem</a>
     </li>
-
     <li>
-      <a href="/om"
+      <a href="#om"
          hx-get="partials/om.html"
          hx-target="#content"
-         hx-swap="innerHTML"
-         hx-push-url="/om">Om</a>
+         hx-swap="innerHTML">Om</a>
     </li>
-
     <li>
-      <a href="/creativehub"
+      <a href="#creativehub"
          hx-get="partials/creativehub.html"
          hx-target="#content"
-         hx-swap="innerHTML"
-         hx-push-url="/creativehub">Creative Hub</a>
+         hx-swap="innerHTML">Creative Hub</a>
     </li>
   </ul>
 </nav>
@@ -551,6 +546,48 @@ h1{
       });
     }
   });
+
+
+  // Add this to your script section
+document.addEventListener('DOMContentLoaded', function() {
+  function loadContentFromHash() {
+    const hash = window.location.hash.replace('#', '');
+    const routeMap = {
+      'creativehub': 'partials/creativehub.html',
+      'om': 'partials/om.html',
+      '': 'partials/home.html'
+    };
+    
+    const partial = routeMap[hash] || routeMap[''];
+    
+    htmx.ajax('GET', partial, {
+      target: '#content',
+      swap: 'innerHTML'
+    });
+  }
+  
+  // Load content on initial page load based on hash
+  if (window.location.hash) {
+    loadContentFromHash();
+  }
+  
+  // Update hash when navigating
+  document.body.addEventListener('htmx:beforeRequest', function(evt) {
+    const path = evt.detail.pathInfo.requestPath;
+    const hashMap = {
+      '/om': '#om',
+      '/creativehub': '#creativehub', 
+      '/': '#'
+    };
+    
+    if (hashMap[path]) {
+      window.location.hash = hashMap[path];
+    }
+  });
+  
+  // Listen for hash changes
+  window.addEventListener('hashchange', loadContentFromHash);
+});
   
     </script>
 </body>
