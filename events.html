@@ -260,7 +260,7 @@
               <p>Der er gratis tilmelding, men der er begrænsede pladser!</p> <br>
 
               <div id="events-message" style="display:none; margin-bottom:1rem; padding:0.75rem 1rem; border-radius:0.5rem; background:#f2a49a; color:black; font-weight:bold; text-align:center;"></div>
-              <form class="newsletter-form" id="events-form" novalidate>
+              <form class="newsletter-form" id="events-form" novalidate hx-ignore hx-boost="false">
                 <input type="text" name="name" placeholder="Dit navn" required>
                 <input type="email" name="email" placeholder="Din email" required>
                 <button type="submit">Tilmeld</button>
